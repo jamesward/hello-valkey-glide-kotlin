@@ -13,11 +13,11 @@ suspend fun main() {
     val address = NodeAddress.builder().host(container.host).port(container.firstMappedPort).build()
     val config = GlideClientConfiguration.builder().address(address).build()
 
-    val client = GlideClient.createClient(config).await()
+    GlideClient.createClient(config).await().use { client ->
+        println("PING: " + client.ping().await())
+        println("PING(found you): " + client.ping("found you").await())
 
-    println("PING: " + client.ping().await())
-    println("PING(found you): " + client.ping("found you").await())
-
-    println("SET(apples, oranges): " + client.set("apples", "oranges").await())
-    println("GET(apples): " + client.get("apples").await())
+        println("SET(apples, oranges): " + client.set("apples", "oranges").await())
+        println("GET(apples): " + client.get("apples").await())
+    }
 }
