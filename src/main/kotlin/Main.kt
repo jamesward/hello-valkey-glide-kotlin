@@ -5,7 +5,7 @@ import kotlinx.coroutines.future.await
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.utility.DockerImageName
 
-val container = GenericContainer(DockerImageName.parse("valkey/valkey")).withExposedPorts(6379)
+val container = GenericContainer(DockerImageName.parse("valkey/valkey:8")).withExposedPorts(6379)
 
 suspend fun main() {
     container.start()
